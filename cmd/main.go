@@ -10,7 +10,7 @@ import (
 
 func main() {
 	r := chi.NewRouter()
-	r.Get("/container-info/{name}", funcs.GetContainerInfoHandler)
+	r.Get("/{name}", funcs.GetContainerInfoHandler)
 
 	log.Println("Starting server on :8080")
 	http.ListenAndServe(":8080", r)
