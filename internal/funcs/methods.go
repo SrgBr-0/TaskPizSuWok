@@ -15,7 +15,7 @@ import (
 
 const registryURL = "http://localhost:5000/v2"
 
-var containerCache = cache.New(5*time.Minute, 10*time.Minute)
+var containerCache = cache.New(5*time.Minute, 10*time.Minute) //кеш при необходимости меняем на нужные временные данные
 var ipRequestTimes = make(map[string]time.Time)
 var mu sync.Mutex
 
@@ -24,7 +24,7 @@ func GetContainerInfoHandler(w http.ResponseWriter, r *http.Request) {
 	ip := r.Header.Get("X-Forwarded-For")
 	mu.Lock()
 	if lastRequestTime, exists := ipRequestTimes[ip]; exists {
-		if time.Since(lastRequestTime) < time.Second {
+		if time.Since(lastRequestTime) < time.Second { //Лимит на ограничение запросов: 1 в 1 секунду. При необходимости меняем
 			http.Error(w, "Too many requests", http.StatusTooManyRequests)
 			mu.Unlock()
 			return
