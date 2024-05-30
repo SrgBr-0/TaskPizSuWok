@@ -12,18 +12,18 @@ import (
 	"github.com/patrickmn/go-cache"
 )
 
-const registryURL = "http://localhost:5000/v2"
+const RegistryURL = "http://localhost:5000/v2"
 
 type ContainerInfo struct {
 	Layers int `json:"layers"`
 	Size   int `json:"size"`
 }
 
-var containerCache = cache.New(5*time.Minute, 10*time.Minute)
-var ipRequestTimes = make(map[string]time.Time)
-var mu sync.Mutex
+var ContainerCache = cache.New(5*time.Minute, 10*time.Minute)
+var IpRequestTimes = make(map[string]time.Time)
+var Mu sync.Mutex
 
-func GetContainerInfoHandler(w http.ResponseWriter, r *http.Request) {
+/*func GetContainerInfoHandler(w http.ResponseWriter, r *http.Request) {
 	name := chi.URLParam(r, "name")
 	ip := r.Header.Get("X-Forwarded-For")
 
@@ -135,3 +135,4 @@ func getManifestInfo(name, tag string) (ContainerInfo, error) {
 		Size:   totalSize,
 	}, nil
 }
+*/
