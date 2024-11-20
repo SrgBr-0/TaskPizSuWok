@@ -1,0 +1,15 @@
+kind: pipeline
+type: docker
+name: go-pipeline
+
+steps:
+- name: setup-go
+  image: golang:1.20
+  commands:
+    - go mod tidy  # Убедимся, что зависимости настроены
+    - go mod download  # Скачаем все зависимости
+
+- name: run-app
+  image: golang:1.20
+  commands:
+    - go run main.go
